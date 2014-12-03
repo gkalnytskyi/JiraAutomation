@@ -55,17 +55,17 @@ namespace JiraTests
             _Steps.GoToIssuesReportedByMe();
 
             // Assert
-            _Steps.VerifyIssueCreated(issueIdentifier);
+            _Steps.VerifyIssuePresent(issueIdentifier);
         }
 
         [Test]
         public void User_Can_Edit_Issue()
         {
             // Arrange
-            // var issueIdentifier = Guid.NewGuid().ToString();
-            var issueIdentifier = "38d3d4da-d497-4192-bb7a-c98f072310b7";
+            var issueIdentifier = Guid.NewGuid().ToString();
             _Steps.GoToProjectsIssuesSummary();
-            //_Steps.CreateNewBugIssue(issueIdentifier);
+            _Steps.CreateNewBugIssue(issueIdentifier);
+            
             // Act
             _Steps.GoToIssuesReportedByMe();
             _Steps.GoToIssuePage(issueIdentifier);
@@ -73,6 +73,22 @@ namespace JiraTests
 
             // Assert
             _Steps.VerifyIssueUpdated();
+        }
+
+        [Test]
+        public void User_Can_Find_Issue_Using_Search()
+        {
+            // Arrange
+            var issueIdentifier = Guid.NewGuid().ToString();
+            _Steps.GoToProjectSummaryPage();
+            _Steps.CreateNewBugIssue(issueIdentifier);
+            _Steps.GoToProjectSummaryPage();
+            
+            // Act
+            _Steps.SearchForIssue(issueIdentifier);
+
+            // Assert
+            _Steps.VerifyIssuePresent(issueIdentifier);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace JiraTests
     public class AutomationFramework : IDisposable
     {
         private Uri _BaseUrl;
-        public const int Timeout = 10;
+        public const int Timeout = 5;
 
         public IWebDriver Driver { get; private set; }
 
