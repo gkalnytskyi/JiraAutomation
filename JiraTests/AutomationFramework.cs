@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Diagnostics;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -8,7 +9,7 @@ namespace JiraTests
     public class AutomationFramework : IDisposable
     {
         private Uri _BaseUrl;
-        public const int Timeout = 5;
+        public static readonly int Timeout = int.Parse(ConfigurationManager.AppSettings["Timeout"]);
 
         public IWebDriver Driver { get; private set; }
 
@@ -29,8 +30,9 @@ namespace JiraTests
             StopAllDrivers();
 
             var options = new ChromeOptions();
+            var profilePath = ConfigurationManager.AppSettings["ProfilePath"];
             options.AddArgument("--start-maximized");
-            options.AddArgument("--user-data-dir=c:/Users/Georgii/AppData/Local/Google/Chrome/User Data");
+            options.AddArgument("--user-data-dir=" + profilePath);
             Driver = new ChromeDriver(options);
             Driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(Timeout));
         }

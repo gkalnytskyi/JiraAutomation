@@ -51,10 +51,10 @@ namespace JiraTests
             // Act
             _Steps.GoToProjectSummaryPage();
             _Steps.CreateNewBugIssue(issueIdentifier);
-            _Steps.GoToProjectsIssuesSummary();
-            _Steps.GoToIssuesReportedByMe();
 
             // Assert
+            _Steps.GoToProjectsIssuesSummary();
+            _Steps.GoToIssuesReportedByMe();
             _Steps.VerifyIssuePresent(issueIdentifier);
         }
 
